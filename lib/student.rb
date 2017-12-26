@@ -52,12 +52,10 @@ class Student
   end
 
   def self.new_from_db(row)
-    new_student = Student.new
     id = row[0]
     name = row[1]
     grade = row[2]
-    new_student(id, name, grade)
-    # Student.new(id, name, grade)
+    Student.new(id, name, grade)
   end
 
   def self.find_by_name(name)
