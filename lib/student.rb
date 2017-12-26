@@ -31,14 +31,18 @@ class Student
   end
 
   def self.save
-    sql = <<-SQL
-      INSERT INTO students (name, grade)
-      VALUES (?, ?)
-    SQL
+    if self.id 
+      self.update
+    else
+      sql = <<-SQL
+        INSERT INTO students (name, grade)
+        VALUES (?, ?)
+      SQL
 
-    DB[:conn].execute(sql, self.name, self.grade)
+      DB[:conn].execute(sql, self.name, self.grade)
 
-    @id = DB[:conn].execute("SELECT id FROM students")[0][0]
+      @id = DB[:conn].execute("SELECT id FROM students")[0][0]
+    end
   end
 
   # Remember, you can access your database connection anywhere in this class
